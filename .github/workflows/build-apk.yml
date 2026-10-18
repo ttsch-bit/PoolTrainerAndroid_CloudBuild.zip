@@ -38,7 +38,11 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
-
+      - name: Fix Java and Kotlin JVM targets
+        working-directory: source/PoolTrainerAndroid
+        run: |
+          sed -i 's/JavaVersion.VERSION_1_8/JavaVersion.VERSION_17/g' app/build.gradle.kts
+          sed -i 's/JavaVersion.VERSION_1_8/JavaVersion.VERSION_17/g' app/build.gradle
       - name: Build APK
         working-directory: source/PoolTrainerAndroid
         run: gradle --no-daemon assembleDebug
